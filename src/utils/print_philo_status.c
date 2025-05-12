@@ -1,6 +1,6 @@
 #include "philo.h"
 
-void	print_philo_status2(t_data *data, int id, const char *status)
+void	print_philo_status(t_data *data, int id, const char *status)
 {
 	long		current_time_ms;
 	static long	last_timestamp = -1;
