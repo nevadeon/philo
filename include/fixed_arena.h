@@ -9,10 +9,10 @@ typedef struct s_fixed_arena_data
 	uint8_t	*mem_start;
 	size_t	used_memory;
 	size_t	capacity;
-}	t_fixed_arena_data;
+}	t_fixed_arena;
 
-t_fixed_arena_data	make_fixed_arena_data(size_t size);
-void				*fixed_arena_alloc_fn(void *strategy_data, size_t size);
-void				free_fixed_arena_data(t_fixed_arena_data *arena);
+t_fixed_arena	make_fixed_arena(size_t size);
+void			*fixed_arena_alloc_fn(void *strategy_data, size_t size);
+void			free_fixed_arena(t_fixed_arena *arena);
 
 #endif

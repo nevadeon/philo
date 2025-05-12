@@ -18,19 +18,19 @@ static size_t	_compute_required_memory(char const *argv[])
 
 int	main(int argc, char const *argv[])
 {
-	t_data				data;
-	t_allocator			alloc_arena;
-	t_fixed_arena_data	arena_data;
+	t_data			data;
+	t_allocator		alloc_arena;
+	t_fixed_arena	fixed_arena;
 
 	if (argc < 5 || argc > 6)
 		exit_error(ERR_USAGE);
-	arena_data = make_fixed_arena_data(_compute_required_memory(argv));
-	alloc_arena = make_allocator(&arena_data, fixed_arena_alloc_fn);
+	fixed_arena = make_fixed_arena(_compute_required_memory(argv));
+	alloc_arena = make_allocator(&fixed_arena, fixed_arena_alloc_fn);
 	data = make_data(&alloc_arena, argc, argv);
 	init_mutexes(&data);
 	init_threads(&data);
 	wait_threads(&data);
 	destroy_mutexes(&data);
-	free_fixed_arena_data(&arena_data);
+	free_fixed_arena(&fixed_arena);
 	return (0);
 }
