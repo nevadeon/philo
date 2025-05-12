@@ -4,9 +4,9 @@ NAME := philo
 CC := cc
 CFLAGS = -Wall -Wextra -Werror -pthread -o3 -I$(INC_DIR)
 LDFLAGS =
-VALGRIND_FLAGS := --quiet --leak-check=full --show-leak-kinds=all --track-origins=yes
+VALGRIND_FLAGS := --quiet --leak-check=full --show-leak-kinds=all
 GDB_FLAGS := --quiet --args
-GDB_VALGRIND_ARGS = 1 410 200 200
+ARGS = 5 2000 200 200 10
 
 # Directories
 INC_DIR := include
@@ -42,12 +42,12 @@ fclean: clean
 #        Test rules                                                            #
 # ============================================================================ #
 
-valgrind: CFLAGS += -g -fsanitize=thread
+valgrind: CFLAGS += -g
 valgrind: re
-	valgrind $(VALGRIND_FLAGS) ./$(NAME) $(GDB_VALGRIND_ARGS)
+	valgrind $(VALGRIND_FLAGS) ./$(NAME) $(ARGS)
 
-gdb: CFLAGS += -g -fsanitize=thread
+gdb: CFLAGS += -g
 gdb: re
-	gdb $(GDB_FLAGS) ./$(NAME) $(GDB_VALGRIND_ARGS)
+	gdb $(GDB_FLAGS) ./$(NAME) $(ARGS)
 
 .PHONY: all re clean fclean valgrind gdb
