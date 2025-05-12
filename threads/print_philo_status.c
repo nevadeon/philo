@@ -11,7 +11,8 @@ void	print_philo_status(t_data *data, int id, const char *status)
 	current_time_ms = get_time_ms() - data->start_time_ms;
 	if (last_timestamp != current_time_ms)
 	{
-		printf("╚══════╩══════════════════╝\n");
+		if (last_timestamp != -1)
+			printf("╚══════╩══════════════════╝\n");
 		printf("╔══════╦══════════════════╗\n");
 		printf("║  id  ║    time %-8ld ║\n", current_time_ms);
 		printf("╠══════╬══════════════════╣\n");
