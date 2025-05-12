@@ -2,12 +2,17 @@
 #include <assert.h>
 #include "fixed_arena.h"
 
-void	init_fixed_arena_data(t_fixed_arena_data *arena, size_t size)
+t_fixed_arena_data	make_fixed_arena_data(size_t size)
 {
-	arena->mem_start = malloc(size);
-	assert(arena->mem_start);
-	arena->used_memory = 0;
-	arena->capacity = size;
+	t_fixed_arena_data	data;
+
+	data = (t_fixed_arena_data){
+		.mem_start = malloc(size),
+		.used_memory = 0,
+		.capacity = size,
+	};
+	assert(data.mem_start);
+	return (data);
 }
 
 void	free_fixed_arena_data(t_fixed_arena_data *arena)

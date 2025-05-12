@@ -7,8 +7,13 @@ void	*mem_alloc(t_allocator *allocator, size_t size)
 	return (allocator->strategy_fn(allocator->strategy_data, size));
 }
 
-void	init_allocator(t_allocator *alloc, void *data, t_alloc_fn function)
+t_allocator	make_allocator(void *data, t_alloc_fn function)
 {
-	alloc->strategy_data = data;
-	alloc->strategy_fn = function;
+	t_allocator	allocator;
+
+	allocator = (t_allocator){
+		.strategy_data = data,
+		.strategy_fn = function,
+	};
+	return (allocator);
 }

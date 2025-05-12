@@ -61,7 +61,7 @@ typedef struct s_thread_arg
 }	t_thread_arg;
 
 //main
-void	init_data(t_data *d, t_allocator *alloc, int argc, char const *argv[]);
+t_data	make_data(t_allocator *arena, int argc, char const *argv[]);
 void	init_threads(t_data *data);
 void	init_mutexes(t_data *data);
 void	destroy_mutexes(t_data *data);

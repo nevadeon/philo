@@ -11,7 +11,7 @@ typedef struct s_allocator
 	t_alloc_fn	strategy_fn;
 }	t_allocator;
 
-void	*mem_alloc(t_allocator *allocator, size_t size);
-void	init_allocator(t_allocator *alloc, void *data, t_alloc_fn function);
+void		*mem_alloc(t_allocator *allocator, size_t size);
+t_allocator	make_allocator(void *data, t_alloc_fn function);
 
 #endif

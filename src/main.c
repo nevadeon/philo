@@ -24,9 +24,9 @@ int	main(int argc, char const *argv[])
 
 	if (argc < 5 || argc > 6)
 		exit_error(ERR_USAGE);
-	init_fixed_arena_data(&arena_data, _compute_required_memory(argv));
-	init_allocator(&alloc_arena, &arena_data, fixed_arena_alloc_fn);
-	init_data(&data, &alloc_arena, argc, argv);
+	arena_data = make_fixed_arena_data(_compute_required_memory(argv));
+	alloc_arena = make_allocator(&arena_data, fixed_arena_alloc_fn);
+	data = make_data(&alloc_arena, argc, argv);
 	init_mutexes(&data);
 	init_threads(&data);
 	wait_threads(&data);
