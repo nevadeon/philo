@@ -10,8 +10,8 @@ const char	*get_error_message(t_error error_code)
 		[ERR_NON_NUMERICAL_INPUT] = "Program only accepts positive integers as \
 			parameters", \
 		[ERR_TOO_MANY_PHILO] = "200 philosophers at max", \
-		[ERR_MUTEX_INIT_FAIL] = "Error: mutex init failed", \
-		[ERR_THREAD_INIT_FAIL] = "Error: failed to create thread" \
+		[ERR_MUTEX_INIT_FAIL] = "mutex init failed", \
+		[ERR_THREAD_INIT_FAIL] = "failed to create thread" \
 	};
 
 	if (error_code >= ERR_MAX || error_code <= ERR_MIN)
