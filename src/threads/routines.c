@@ -10,7 +10,7 @@ static void	_acquire_forks(t_data *data, t_thread_arg *arg)
 
 static void	_eat_meal(t_data *data, t_thread_arg *arg, int *meals_eaten)
 {
-	print_philo_status(data, arg->id, "       is eating");
+	print_philo_status(data, arg->id, "is eating       ");
 	msleep(data->time_to_eat_ms);
 	update_last_meal(arg);
 	(*meals_eaten)++;
@@ -44,9 +44,9 @@ void	*philo_routine(void *_arg)
 	{
 		_acquire_forks(data, arg);
 		_eat_meal(data, arg, &meals_eaten);
-		print_philo_status(data, arg->id, "     is sleeping");
+		print_philo_status(data, arg->id, "is sleeping     ");
 		msleep(data->time_to_sleep_ms);
-		print_philo_status(data, arg->id, "     is thinking");
+		print_philo_status(data, arg->id, "is thinking     ");
 		if (meals_eaten == data->nb_meals_to_eat)
 			_increment_done_eating_counter(data);
 	}
@@ -68,7 +68,7 @@ void	*reaper_routine(void *_arg)
 		pthread_mutex_unlock(&arg->last_meal_mutex);
 		if (elapsed_time_ms > data->time_to_die_ms)
 		{
-			print_philo_status(data, arg->id, "            died");
+			print_philo_status(data, arg->id, "died            ");
 			set_stop_simulation(data, true);
 			break ;
 		}
