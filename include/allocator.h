@@ -2,6 +2,7 @@
 # define ALLOCATOR_H
 
 # include <stddef.h>
+# include <assert.h>
 
 typedef void	*(*t_alloc_fn)(void *strategy_data, size_t size);
 
