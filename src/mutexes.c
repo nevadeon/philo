@@ -11,8 +11,6 @@ void	init_mutexes(t_data *data)
 			exit_error(ERR_MUTEX_INIT_FAIL);
 		if (pthread_mutex_init(&data->args[i].last_meal_mutex, NULL) != 0)
 			exit_error(ERR_MUTEX_INIT_FAIL);
-		if (pthread_mutex_init(&data->args[i].is_done_eating_mutex, NULL) != 0)
-			exit_error(ERR_MUTEX_INIT_FAIL);
 		i++;
 	}
 	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
@@ -32,7 +30,6 @@ void	destroy_mutexes(t_data *data)
 	{
 		pthread_mutex_destroy(&data->forks[i]);
 		pthread_mutex_destroy(&data->args[i].last_meal_mutex);
-		pthread_mutex_destroy(&data->args[i].is_done_eating_mutex);
 		i++;
 	}
 	pthread_mutex_destroy(&data->print_mutex);

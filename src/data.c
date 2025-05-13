@@ -26,7 +26,6 @@ static void	_init_args(t_data *data)
 	{
 		args[i].id = i;
 		args[i].data = data;
-		args[i].is_done_eating = false;
 		args[i].last_meal_ms = get_time_ms();
 		i++;
 	}

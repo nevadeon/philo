@@ -54,10 +54,8 @@ typedef struct s_thread_arg
 {
 	t_data			*data;
 	pthread_mutex_t	last_meal_mutex;
-	pthread_mutex_t	is_done_eating_mutex;
 	long			last_meal_ms;
 	int				id;
-	bool			is_done_eating;
 }	t_thread_arg;
 
 //main
@@ -74,9 +72,7 @@ void	*reaper_routine(void *_arg);
 //helper functions
 void	update_last_meal(t_thread_arg *arg);
 bool	stop_simulation(t_data *data);
-bool	is_done_eating(t_thread_arg *arg);
 void	set_stop_simulation(t_data *data, bool value);
-void	set_is_done_eating(t_thread_arg *arg, bool value);
 
 //utils
 int		atou(const char *s);
