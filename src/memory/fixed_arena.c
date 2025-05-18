@@ -15,6 +15,7 @@ t_fixed_arena	make_fixed_arena(size_t size)
 
 bool	check_fixed_arena(t_fixed_arena *arena)
 {
+	assert(arena);
 	if (arena->mem_start)
 		return (true);
 	return (false);
@@ -38,8 +39,7 @@ void	*fixed_arena_alloc_fn(void *strategy_data, size_t size)
 	assert(size > 0);
 	arena = (t_fixed_arena *)strategy_data;
 	assert(arena->mem_start);
-	if (arena->used_memory + size > arena->capacity)
-		return (NULL);
+	assert((arena->used_memory + size) <= arena->capacity);
 	ptr = arena->mem_start + arena->used_memory;
 	arena->used_memory += size;
 	return (ptr);
