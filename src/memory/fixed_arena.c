@@ -1,11 +1,14 @@
 #include <stdlib.h>
 #include "fixed_arena.h"
 
-t_fixed_arena	make_fixed_arena(size_t size)
+t_fixed_arena	*new_fixed_arena(size_t size)
 {
-	t_fixed_arena	arena;
+	t_fixed_arena	*arena;
 
-	arena = (t_fixed_arena){
+	arena = malloc(sizeof(t_fixed_arena));
+	if (!arena)
+		return (NULL);
+	*arena = (t_fixed_arena){
 		.mem_start = malloc(size),
 		.used_memory = 0,
 		.capacity = size,
@@ -13,34 +16,52 @@ t_fixed_arena	make_fixed_arena(size_t size)
 	return (arena);
 }
 
-bool	check_fixed_arena(t_fixed_arena *arena)
+void	*fixed_arena_alloc_fn(void *data, size_t size)
 {
-	assert(arena);
-	if (arena->mem_start)
+	t_fixed_arena	*arena;
+	void			*ptr;
+
+	assert(data);
+	assert(size > 0);
+	arena = (t_fixed_arena *)data;
+	assert(arena->mem_start);
+	assert((arena->used_memory + size) <= arena->capacity);
+	ptr = arena->mem_start + arena->used_memory;
+	arena->used_memory += size;
+	return (ptr);
+}
+
+bool	fixed_arena_check_fn(void *data)
+{
+	t_fixed_arena	*arena;
+
+	arena = data;
+	if (arena && arena->mem_start)
 		return (true);
 	return (false);
 }
 
-void	free_fixed_arena(t_fixed_arena *arena)
+void	fixed_arena_free_fn(void *data)
 {
-	assert(arena);
+	t_fixed_arena	*arena;
+
+	assert(data);
+	arena = data;
 	free(arena->mem_start);
 	arena->mem_start = NULL;
 	arena->used_memory = 0;
 	arena->capacity = 0;
 }
 
-void	*fixed_arena_alloc_fn(void *strategy_data, size_t size)
+t_allocator	make_fixed_arena_allocator(size_t size)
 {
-	t_fixed_arena	*arena;
-	void			*ptr;
+	t_allocator	fixed_arena_allocator;
 
-	assert(strategy_data);
-	assert(size > 0);
-	arena = (t_fixed_arena *)strategy_data;
-	assert(arena->mem_start);
-	assert((arena->used_memory + size) <= arena->capacity);
-	ptr = arena->mem_start + arena->used_memory;
-	arena->used_memory += size;
-	return (ptr);
+	fixed_arena_allocator = (t_allocator){
+		.data = new_fixed_arena(size),
+		.alloc_fn = fixed_arena_alloc_fn,
+		.check_fn = fixed_arena_check_fn,
+		.free_fn = fixed_arena_free_fn,
+	};
+	return (fixed_arena_allocator);
 }

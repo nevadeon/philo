@@ -2,9 +2,10 @@
 # define FIXED_ARENA_H
 
 # include <stddef.h>
-# include <stdint.h>
-# include <assert.h>
 # include <stdbool.h>
+# include <assert.h>
+# include <stdint.h>
+# include "allocator.h"
 
 typedef struct s_fixed_arena
 {
@@ -13,9 +14,10 @@ typedef struct s_fixed_arena
 	size_t	capacity;
 }	t_fixed_arena;
 
-void			*fixed_arena_alloc_fn(void *strategy_data, size_t size);
-t_fixed_arena	make_fixed_arena(size_t size);
-void			free_fixed_arena(t_fixed_arena *arena);
-bool			check_fixed_arena(t_fixed_arena *arena);
+void			*fixed_arena_alloc_fn(void *data, size_t size);
+bool			fixed_arena_check_fn(void *data);
+void			fixed_arena_free_fn(void *data);
+t_allocator		make_fixed_arena_allocator(size_t size);
+t_fixed_arena	*new_fixed_arena(size_t size);
 
 #endif

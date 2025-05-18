@@ -3,18 +3,20 @@
 void	*mem_alloc(t_allocator *allocator, size_t size)
 {
 	assert(allocator);
-	assert(allocator->strategy_fn);
-	return (allocator->strategy_fn(allocator->strategy_data, size));
+	assert(allocator->alloc_fn);
+	return (allocator->alloc_fn(allocator->data, size));
 }
 
-t_allocator	make_allocator(void *data, t_alloc_fn function)
+bool	check_allocator_data(t_allocator *allocator)
 {
-	t_allocator	allocator;
+	assert(allocator);
+	assert(allocator->check_fn);
+	return (allocator->check_fn(allocator->data));
+}
 
-	assert(function);
-	allocator = (t_allocator){
-		.strategy_data = data,
-		.strategy_fn = function,
-	};
-	return (allocator);
+void	free_allocator_data(t_allocator *allocator)
+{
+	assert(allocator);
+	assert(allocator->free_fn);
+	allocator->free_fn(allocator->data);
 }
