@@ -9,7 +9,7 @@
 # include <pthread.h>
 # include <stdbool.h>
 # include "allocator.h"
-# include "fixed_arena.h"
+# include "block_allocator.h"
 
 # define NB_OF_PHILO_INDEX 1
 # define TIME_TO_DIE_INDEX 2
@@ -60,7 +60,7 @@ typedef struct s_thread_arg
 }	t_thread_arg;
 
 //main
-t_data	make_data(t_allocator *arena, int argc, char const *argv[]);
+t_data	make_data(t_alloc *arena, int argc, char const *argv[]);
 void	init_threads(t_data *data);
 void	init_mutexes(t_data *data);
 void	destroy_mutexes(t_data *data);

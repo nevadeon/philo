@@ -31,7 +31,7 @@ static void	_init_args(t_data *data)
 	}
 }
 
-t_data	make_data(t_allocator *arena, int argc, char const *argv[])
+t_data	make_data(t_alloc *arena, int argc, char const *argv[])
 {
 	int		nb_philos;
 	t_data	data;
